@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Proposal to You</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: linear-gradient(to bottom, #ffcccc, #ffe6e6);
+            color: #333;
+            text-align: center;
+            padding: 50px;
+            margin: 0;
+        }
+        .container {
+            max-width: 600px;
+            margin: auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #ff69b4;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 18px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 10px;
+            transition: transform 0.2s, background 0.2s; /* Smooth hover effects */
+        }
+        button:hover {
+            transform: scale(1.1); /* Fun bounce effect */
+        }
+        #noButton {
+            position: relative; /* For movement animation */
+            transition: all 0.3s ease; /* Smooth movement */
+        }
+        #noButton:hover {
+            transform: translateX(50px) scale(1.2); /* Makes it "run away" to the right on hover */
+            background: #ff4500; /* Changes color for fun */
+        }
+        #response {
+            margin-top: 20px;
+            font-size: 20px;
+            animation: fadeIn 1s; /* Fun fade-in animation */
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        #countdown {
+            font-size: 24px;
+            font-weight: bold;
+            color: #ff69b4;
+            margin-bottom: 20px;
+            animation: pulse 1s infinite; /* Pulsing animation for excitement */
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        #proposal {
+            display: none; /* Hidden until countdown ends */
+        }
+        .fun-text {
+            font-style: italic;
+            color: #ff1493;
+            margin-bottom: 10px;
+        }
+    </style>
+    <!-- Confetti.js library for animations -->
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div id="countdown">5</div> <!-- Countdown timer starts from 5 now -->
+        <div id="proposal">
+            <h1>Hey monty, I Have Something to Ask...</h1>
+            <p>(maybe this is the 1000th time)</p>
+            <p class="fun-text">Get ready for the most epic question ever! 💖</p>
+            <p>From the moment I met you, you've made my world brighter. You're kind, funny, and absolutely amazing. Blah blah blah</p>
+            <p class="fun-text">So, Sweetieee, will you go on a date with me? (Hint: Na bolleo lav nai...basha theke tule anbo)</p>
+            <button onclick="confetti(); propose('yes')">Yes! Lessgoooo</button>
+            <button id="noButton" onclick="noFun()">No (Catch me if you can!)</button> <!-- Now clickable with fun behavior -->
+            <div id="response"></div>
+        </div>
+    </div>
+    <script>
+        // Countdown timer function (now starts from 5)
+        let timeLeft = 5; // Changed from 10 to 5
+        const timer = setInterval(() => {
+            document.getElementById('countdown').innerText = timeLeft;
+            timeLeft--;
+            if (timeLeft < 0) {
+                clearInterval(timer);
+                document.getElementById('countdown').style.display = 'none'; // Hide countdown
+                document.getElementById('proposal').style.display = 'block'; // Reveal proposal
+            }
+        }, 1000);
+
+        // Proposal response function with fun text
+        function propose(choice) {
+            if (choice === 'yes') {
+                document.getElementById('response').innerHTML = "Yay! I love you! 🎉 Confetti party time!";
+            }
+        }
+
+        // Fun function for the No button
+        function noFun() {
+            const noBtn = document.getElementById('noButton');
+            // Make it "run away" by moving randomly
+            const randomX = Math.random() * 200 - 100; // Random left/right movement
+            const randomY = Math.random() * 100 - 50; // Random up/down movement
+            noBtn.style.transform = `translate(${randomX}px, ${randomY}px) scale(1.2)`;
+            // Change text for humor
+            noBtn.innerText = "Nope! Try again! 😜";
+            // After a second, reset position and text
+            setTimeout(() => {
+                noBtn.style.transform = 'translate(0, 0) scale(1)';
+                noBtn.innerText = "No (Catch me if you can!)";
+            }, 1000);
+        }
+    </script>
+</body>
+</html>
